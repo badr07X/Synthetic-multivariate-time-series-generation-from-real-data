@@ -16,7 +16,26 @@ Why: After imputation, you can then generate new samples or augment your dataset
 When: After the missing values are imputed, generation can help to create new samples for training purposes, particularly if you're working with generative models like DMs or GANs.
 
 In summary:
+
 Imputation first ensures that your data is complete and consistent before generating new data points.
 Generation second allows you to create new data based on the now-complete dataset.
 In some cases, you may have to loop between the two processes (e.g., impute, generate, then re-impute if new missing data appears during generation), but the usual sequence is to impute missing data before generating new data.
+
+3. Generation and Metadata
+
+Role of Metadata: Metadata can play an even more significant role in data generation because generative models rely on the underlying patterns in the data to generate new samples. Metadata can provide constraints and information about the features being generated.
+
+For example, metadata can help:
+
+Conditional generation: Generate new samples conditioned on certain attributes or context (e.g., generating new data for a specific time period or category).
+
+Feature dependencies: Ensure that the relationships between generated features are consistent with the original data.
+
+Data structure: Define the dimensionality or feature set of the generated data to match the real data.
+
+Use of Metadata in Generation: Generative models like GANs or DMs can be conditioned on metadata to create realistic samples. 
+
+In time series generation, you might use timestamps as part of the metadata to create new time series data that follows the same temporal patterns.
+
+
 
