@@ -48,3 +48,12 @@ In time series generation, you might use timestamps as part of the metadata to c
   <img alt=" csdi Time Weaver" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/time%20Weaver%20.png">
 </p>
 
+## Time Weaver CSDI : 
+
+<p align="center">
+  <img alt=" csdi Time Weaver" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/Time%20Weaver-CSDI.png">
+</p>
+
+
+
+
