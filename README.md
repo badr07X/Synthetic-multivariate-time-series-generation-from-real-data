@@ -38,12 +38,12 @@ Use of Metadata in Generation: Generative models like GANs or DMs can be conditi
 
 In time series generation, you might use timestamps as part of the metadata to create new time series data that follows the same temporal patterns.
 
-CSDI : 
+## CSDI : 
 <p align="center">
   <img alt="csdi model" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/model.png">
 </p>
 
-Time Weaver :  
+## Time Weaver :  
 <p align="center">
   <img alt=" csdi Time Weaver" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/time%20Weaver%20.png">
 </p>
