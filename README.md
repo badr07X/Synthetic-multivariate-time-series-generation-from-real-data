@@ -3,11 +3,21 @@
 </p>
 
 # Synthetic-multivariate-time-series-generation-from-real-data
+## Introduction  
+
+   This project explores methods for generating synthetic multivariate time series that accurately capture real-world dynamics. It focuses on using deep learning, statistical models, and generative models (e.g., GANs and Diffusion Models ) to create high-fidelity synthetic datsets.
+
+   These datasets can support tasks such as data analysis, model training, and validation, addressing issues of data privacy and scarcity. The project will also assess the quality of the generated data by comparing it to real-world data based on statistical properties and predictive performance.
+   
+   
+   
+   
+
 The typical order of operations is imputation followed by generation, but this depends on the context of your task. Here's why:
 
 ## 1. Imputation First
  
-Why: If your dataset has missing values, imputing these missing entries is necessary to ensure the data is complete before you proceed to any data generation process. Missing values could distort the patterns in your data, making the generation of new samples based on that data incorrect or unreliable.
+Why:  If your dataset has missing values, imputing these missing entries is necessary to ensure the data is complete before you proceed to any data generation process. Missing values could distort the patterns in your data, making the generation of new samples based on that data incorrect or unreliable.
 When: When your dataset has gaps that need to be filled before further analysis or model training. For example, in time series data, imputing missing values can restore the continuity of the series, making it suitable for model generation or simulation.
 
 ## 2. Generation Second
