@@ -104,7 +104,7 @@ In time series generation, you might use timestamps as part of the metadata to c
 </p>
 
   ### CSDI hyperparameters 
-  ### Table 1: CSDI Hyperparameters
+### Table 1: CSDI Hyperparameters
 
 | **Hyperparameter**                | **Value**     |
 |-----------------------------------|---------------|
@@ -113,8 +113,8 @@ In time series generation, you might use timestamps as part of the metadata to c
 | Diffusion embedding dim.          | 128           |
 | Schedule                          | Quadratic     |
 | Diffusion steps \(T\)             | 50            |
-| \(B_0\)                           | 0.0001        |
-| \(B_1\)                           | 0.5           |
+| \( \beta_0 \) (Start of variance) | 0.0001        |
+| \( \beta_1 \) (End of variance)   | 0.5           |
 | Feature embedding dim.            | 128           |
 | Time embedding dim.               | 16            |
 | Self-attention layers time dim.   | 1             |
