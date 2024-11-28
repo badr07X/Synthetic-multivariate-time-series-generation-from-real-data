@@ -10,6 +10,17 @@
    These datasets can support tasks such as data analysis, model training, and validation, addressing issues of data privacy and scarcity. The project will also assess the quality of the generated data by comparing it to real-world data based on statistical properties and predictive performance.
 
 ### 1.1 Times series :  
+
+
+
+### 1.2 The utility of time series :
+  Time series analysis allows for the study and prediction of dynamic phenomena, such as sales trends, financial markets, or energy demand.
+
+  The generation of time series data is equally important, as it provides synthetic datasets for testing models, simulating scenarios, and training AI systems when real-world data is limited or incomplete. This capability enables the design of robust models and the exploration of hypothetical situations.
+
+  Time series are crucial for forecasting, anomaly detection, and process optimization across a wide range of fields, including finance, healthcare, and environmental studies.
+
+  Despite their complexity, advancements in artificial intelligence are enhancing their generation, analysis, and application, further strengthening their role in decision-making and innovation.
    
    
    
