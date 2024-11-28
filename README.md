@@ -60,7 +60,8 @@ Understanding these characteristics helps determine appropriate modeling techniq
    
    
    
-   
+## Diffusion Models (DMs)
+
 
 The typical order of operations is imputation followed by generation, but this depends on the context of your task. Here's why:
 
@@ -101,6 +102,30 @@ In time series generation, you might use timestamps as part of the metadata to c
 <p align="center">
   <img alt="csdi model" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/model.png">
 </p>
+
+  ### CSDI hyperparameters 
+  ### Table 1: CSDI Hyperparameters
+
+| **Hyperparameter**                | **Value**     |
+|-----------------------------------|---------------|
+| Residual layers                   | 4             |
+| Residual channels                 | 64            |
+| Diffusion embedding dim.          | 128           |
+| Schedule                          | Quadratic     |
+| Diffusion steps \(T\)             | 50            |
+| \(B_0\)                           | 0.0001        |
+| \(B_1\)                           | 0.5           |
+| Feature embedding dim.            | 128           |
+| Time embedding dim.               | 16            |
+| Self-attention layers time dim.   | 1             |
+| Self-attention heads time dim.    | 8             |
+| Self-attention layers feature dim.| 1             |
+| Self-attention heads feature dim. | 8             |
+| Optimizer                         | Adam          |
+| Loss function                     | MSE           |
+| Learning rate                     | \(1 \times 10^{-3}\) |
+| Weight decay                      | \(1 \times 10^{-6}\) |
+
 
 ## Time Weaver :  
 <p align="center">
