@@ -132,6 +132,53 @@ In time series generation, you might use timestamps as part of the metadata to c
   <img alt=" csdi Time Weaver" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/time%20Weaver%20.png">
 </p>
 
+### Time Weaver: A Conditional Time Series Generation Model
+
+Time Weaver is a novel model designed for conditional time series generation through a diffusion-based probabilistic approach, enabling high-quality synthesis of time series data that aligns with provided metadata. The model incorporates a forward diffusion process q(xt∣xt−1)q(xt​∣xt−1​) to iteratively corrupt the input time series x0x0​ with Gaussian noise, producing increasingly noisy samples xtxt​ over TT steps. The reverse process aims to denoise xtxt​ step-by-step using a learnable denoising function θdenoiserθdenoiser​, effectively reconstructing the original time series x0x0​.
+
+The forward diffusion process can be mathematically represented as:
+q(xt∣xt−1)=N(xt;αtxt−1,(1−αt)I),
+q(xt​∣xt−1​)=N(xt​;αt​
+​xt−1​,(1−αt​)I),
+
+where αtαt​ defines the noise schedule over time tt. The reverse process, parameterized by θdenoiserθdenoiser​, predicts the distribution pθ(xt−1∣xt,z)pθ​(xt−1​∣xt​,z), conditioned on both the noisy sample xtxt​ and metadata embeddings zz:
+pθ(xt−1∣xt,z)=N(xt−1;μθ(xt,z,t),Σθ(xt,z,t)).
+pθ​(xt−1​∣xt​,z)=N(xt−1​;μθ​(xt​,z,t),Σθ​(xt​,z,t)).
+
+Here, μθμθ​ and ΣθΣθ​ represent the predicted mean and variance, respectively, learned by the model.
+Metadata Integration
+
+The key innovation of Time Weaver lies in its conditioning on both categorical and continuous metadata to guide the generation process. Metadata is processed through specialized tokenizers:
+
+    Categorical metadata zcatzcat​ is transformed using a tokenizer θcat tokenθcat token​, which maps it into a learnable embedding space.
+    Continuous metadata zcontzcont​ is processed by θcont tokenθcont token​, capturing continuous features in a similar embedding space.
+
+These embeddings are concatenated:
+z=Concat(zcat,zcont),
+z=Concat(zcat​,zcont​),
+
+and passed through a self-attention mechanism parameterized by θcondnθcondn​ to create the metadata embedding that conditions the denoising process. The attention mechanism ensures the model effectively integrates both types of metadata, producing:
+zcond=SelfAttention(Q,K,V),
+zcond​=SelfAttention(Q,K,V),
+
+where Q,K,VQ,K,V represent the query, key, and value matrices derived from zz.
+Training Objective
+
+The model is trained to minimize the variational lower bound (VLB) of the data distribution:
+L=Eq(xt∣x0)[∥x0−x^0∥2],
+L=Eq(xt​∣x0​)​[∥x0​−x^0​∥2],
+
+where x^0x^0​ is the denoised prediction from θdenoiserθdenoiser​. This objective encourages the model to accurately predict x0x0​ from noisy samples while aligning the generated data with the provided metadata.
+Iterative Sampling
+
+During inference, Time Weaver begins with a Gaussian noise sample xTxT​ and iteratively refines it over TT steps using the reverse process:
+xt−1=fθ(xt,z,t)+gθ(xt,z,t)⋅ϵ,
+xt−1​=fθ​(xt​,z,t)+gθ​(xt​,z,t)⋅ϵ,
+
+where fθfθ​ and gθgθ​ define the denoising update rules and ϵ∼N(0,I)ϵ∼N(0,I) is sampled noise.
+
+By combining diffusion models with metadata-aware conditioning, Time Weaver offers a powerful and flexible framework for generating realistic, contextually relevant time series data. Its applications span various fields, including healthcare, finance, and weather forecasting, where time series data is crucial.
+
 ## Time Weaver CSDI : 
 
 <p align="center">
