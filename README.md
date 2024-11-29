@@ -113,8 +113,8 @@ In time series generation, you might use timestamps as part of the metadata to c
 | Diffusion embedding dim.          | 128           |
 | Schedule                          | Quadratic     |
 | Diffusion steps \(T\)             | 50            |
-| \( \beta_0 \) (Start of variance) | 0.0001        |
-| \( \beta_1 \) (End of variance)   | 0.5           |
+| $\( \beta_0 \)$ (Start of variance) | 0.0001        |
+| $\( \beta_1 \)$ (End of variance)   | 0.5           |
 | Feature embedding dim.            | 128           |
 | Time embedding dim.               | 16            |
 | Self-attention layers time dim.   | 1             |
@@ -123,8 +123,8 @@ In time series generation, you might use timestamps as part of the metadata to c
 | Self-attention heads feature dim. | 8             |
 | Optimizer                         | Adam          |
 | Loss function                     | MSE           |
-| Learning rate                     | \(1 \times 10^{-3}\) |
-| Weight decay                      | \(1 \times 10^{-6}\) |
+| Learning rate                     | $\(1 \times 10^{-3}\)$ |
+| Weight decay                      | $\(1 \times 10^{-6}\)$ |
 
 
 ## Time Weaver :  
