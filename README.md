@@ -209,6 +209,72 @@ By combining diffusion models with metadata-aware conditioning, Time Weaver offe
   <img alt=" csdi Time Weaver" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/Time%20Weaver-CSDI.png">
 </p>
 
+## Metrics 
+### Joint Frechet Time Series Distance (J-FTSD)
+
+The Joint Frechet Time Series Distance (J-FTSD) is a novel evaluation metric specifically designed for conditional time series generation. It addresses the limitations of existing metrics, such as Context-FID, which fail to penalize deviations between real and generated time series with respect to paired metadata. J-FTSD ensures that the generated data not only aligns with the statistical properties of the original time series but also adheres to the metadata conditions provided.
+
+#### **Definition**
+
+Given a dataset of time series and their corresponding metadata pairs $D_g = \{ (x^g, c^g) \}$, where $x^g$ denotes the time series and $c^g$ denotes the metadata, J-FTSD measures the discrepancy between the joint distributions of real and generated time series conditioned on their metadata. 
+
+The metric projects both time series and metadata into a lower-dimensional embedding space using time series feature extractors $\phi_{\text{time}}$ and metadata feature extractors $\phi_{\text{meta}}$, respectively. The joint embeddings of the time series and metadata are then concatenated, and the Frechet Distance (FD) is computed over these embeddings.
+
+Mathematically, J-FTSD is defined as:
+
+$$
+\text{J-FTSD}(D_g, D_r) = \| \mu_r - \mu_g \|^2 + \text{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{\frac{1}{2}}),
+$$
+
+where:
+- $\mu_g$, $\mu_r$: Means of the joint embeddings for generated and real datasets, respectively.
+- $\Sigma_g$, $\Sigma_r$: Covariance matrices of the joint embeddings for generated and real datasets, respectively.
+
+#### **Feature Extraction**
+
+To compute J-FTSD, the model utilizes two feature extractors:
+1. **Time Series Extractor ($\phi_{\text{time}}$):** Captures the features of the time series data.
+2. **Metadata Extractor ($\phi_{\text{meta}}$):** Encodes categorical and continuous metadata into a feature space.
+
+The embeddings from these extractors are concatenated into a joint representation:
+
+$$
+z_{\text{joint}} = \text{Concat}(\phi_{\text{time}}(x), \phi_{\text{meta}}(c)).
+$$
+
+This joint representation captures the relationship between the time series and its metadata, enabling a robust comparison between real and generated distributions.
+
+#### **Training the Feature Extractors**
+
+The feature extractors are trained using a contrastive learning approach to ensure that the joint embeddings of time series and their corresponding metadata are mapped close together in the feature space. During training:
+- Positive pairs (real time series and metadata) are pulled closer.
+- Negative pairs (mismatched time series and metadata) are pushed apart.
+
+The training loss is a combination of two objectives:
+1. **Time Series Loss ($\mathcal{L}_{\text{time}}$):** Ensures accurate representation of time series features.
+2. **Metadata Loss ($\mathcal{L}_{\text{meta}}$):** Optimizes the metadata embeddings.
+
+The total loss is defined as:
+
+$$
+\mathcal{L} = \mathcal{L}_{\text{time}} + \mathcal{L}_{\text{meta}}.
+$$
+
+#### **Why J-FTSD?**
+
+J-FTSD is an ideal metric for evaluating conditional time series generation models because it:
+- Accurately penalizes deviations between real and generated time series while taking metadata into account.
+- Captures the joint alignment of time series data and their corresponding metadata.
+- Reflects the sensitivity of generated time series to metadata-specific perturbations.
+
+#### **Applications of J-FTSD**
+
+J-FTSD is particularly suited for use cases where the generated time series must strongly adhere to the metadata conditions, such as:
+- Synthetic healthcare data generation.
+- Weather forecasting conditioned on specific metadata (e.g., humidity, wind speed).
+- Financial time series prediction influenced by market metadata.
+
+
 
 
 
