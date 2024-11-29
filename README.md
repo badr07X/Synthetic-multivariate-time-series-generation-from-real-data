@@ -103,6 +103,153 @@ In time series generation, you might use timestamps as part of the metadata to c
   <img alt="csdi model" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/model.png">
 </p>
 
+## TimeWeaver: Conditional Score-based Diffusion Model for Time Series with Metadata Embedding
+
+### Introduction
+The **TimeWeaver** model extends the Conditional Score-based Diffusion Model (CSDI) by integrating **metadata embeddings**, allowing it to incorporate external contextual information for tasks such as time series imputation, forecasting, and conditional generation.
+
+---
+
+### Architecture Overview
+
+The TimeWeaver architecture introduces:
+1. A **metadata embedding block** to encode external information (e.g., weather, time of day).
+2. Enhanced modeling of temporal and feature dependencies using dual transformer layers.
+
+Below is the detailed explanation of the components in the architecture:
+
+---
+
+### Input Representations
+
+### 1. Main Input
+- **Input Tensor**: $x$ of shape $(F, 1, L)$  
+  - $F$: Number of features.  
+  - $L$: Sequence length (time steps).  
+
+  The input passes through a **Conv1D** layer, producing a latent representation of shape $(F, C, L)$, where $C$ is the latent channel size.
+
+- **Permutation**: The latent representation is permuted to align with the metadata embedding.
+
+---
+
+### 2. Metadata Embedding
+- **Metadata Tensor**: $z$ of shape $(C, F, L)$  
+  This embedding encodes external contextual information, such as weather conditions or time of day. It is added element-wise to the permuted latent representation of the main input.
+
+---
+
+### 3. Diffusion Embedding
+- **Diffusion Timestep Embedding**: $t$  
+  The timestep $t$ is encoded using a fully connected layer with SiLU activation, followed by expansion to a shape $(128, 1, 1)$. It is then processed using a **Conv1x1** layer for integration.
+
+---
+
+### 4. Side Information
+The model incorporates:
+- **Time Embedding**: Shape $(128, 1, L)$, capturing temporal dependencies.
+- **Feature Embedding**: Shape $(16, F, 1)$, capturing inter-feature relationships.
+
+These embeddings are concatenated and passed through a **Conv1x1** layer to form a block of shape $(144, F, L)$.
+
+---
+
+### Core Model Components
+
+### 1. Transformer Layers
+The model uses two types of transformers:
+1. **Temporal Transformer**:
+   - Operates on the time dimension $L$ to model temporal dependencies.
+   - Input shape: $(C, F, L)$.
+
+2. **Feature Transformer**:
+   - Operates on the feature dimension $F$ to model inter-feature dependencies.
+   - Input shape: $(C, F, L)$.
+
+---
+
+### 2. Residual Layers
+Each residual layer consists of:
+1. **Conv1x1 Expansion**: Expands the latent channels to $2C$.  
+2. **Gated Activation Unit (GAU)**: Applies non-linear interactions in the feature space.  
+3. **Conv1x1 Reduction**: Reduces the channels back to $C$.  
+4. **Residual Connections**: Ensures efficient gradient flow and preserves input information.
+
+---
+
+### 3. Skip Connections
+Skip connections aggregate outputs from multiple residual layers to:
+- Improve gradient flow during training.
+- Retain fine-grained information from earlier layers.
+
+---
+
+### 4. Output Layer
+The output layer includes:
+1. **Conv1x1 and ReLU**: Applies a final transformation to the processed features.
+2. **Masking**: The output is multiplied by $(1 - m^{\text{co}})$, where $m^{\text{co}}$ is a conditional mask indicating observed versus missing values.
+
+---
+
+### Metadata Block
+
+| **Component**           | **Description**                                                              |
+|--------------------------|------------------------------------------------------------------------------|
+| **Metadata Input**       | Encodes external context as an embedding block.                             |
+| **Integration Method**   | Adds the metadata embedding $z$ to the permuted input latent representation. |
+| **Purpose**              | Enhances model performance for tasks requiring external domain knowledge.    |
+| **Examples**             | Weather conditions, time of day, economic indicators, etc.                  |
+
+---
+
+### Model Architecture Diagram
+
+Below is the architecture diagram illustrating the `TimeWeaver` model:
+ 
+<p align="center">
+  <img alt="csdi model" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/model.png">
+</p>
+
+---
+
+## Enhanced Features in TimeWeaver
+
+1. **Metadata Embedding Block**:
+   - Integrates external contextual information into the model pipeline.
+   - Enables improved accuracy for tasks requiring external dependencies.
+
+2. **Dual Transformer Layers**:
+   - Separately model temporal and feature dependencies for better representation.
+
+3. **Diffusion Framework**:
+   - Uses score-based diffusion to refine predictions iteratively.
+
+4. **Residual and Skip Connections**:
+   - Ensure smooth training and efficient information propagation.
+
+---
+
+## Applications
+TimeWeaver is designed for:
+- **Time Series Imputation**:
+  - Filling missing data points in multivariate time series.
+- **Conditional Forecasting**:
+  - Predicting future time steps based on historical data and metadata conditions.
+- **Conditional Generation**:
+  - Generating time series conditioned on specific input features and metadata.
+
+---
+
+## Advantages Over CSDI
+- **Contextual Awareness**: Metadata embedding enables context-aware predictions.
+- **Improved Modeling**: Dual transformers separately handle temporal and feature dependencies.
+- **Enhanced Stability**: Residual and skip connections ensure smoother training.
+
+---
+
+## Conclusion
+The TimeWeaver model extends the CSDI framework with metadata embeddings, making it well-suited for real-world time series applications where external context is critical. By leveraging transformers, residual connections, and the diffusion framework, TimeWeaver achieves state-of-the-art performance in time series imputation and generation tasks.
+
 # Time Series Diffusion Model Architecture
 
 This repository implements a diffusion-based model for time series generation and imputation. Below is a detailed explanation of the architecture.
