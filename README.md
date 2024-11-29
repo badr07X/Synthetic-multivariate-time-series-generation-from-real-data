@@ -178,14 +178,10 @@ where $Q, K, V$ represent the query, key, and value matrices derived from $z$.
 ### Training Objective
 The model is trained to minimize the variational lower bound (VLB) of the data distribution:
 
-$$
-\mathcal{L} = \mathbb{E}_{q(x_t \mid x_0)} \Big[ | x_0 - \hat{x}_0 |^2 \Big],
-$$
+![Loss Equation](https://latex.codecogs.com/svg.latex?\mathcal{L}=\mathbb{E}_{q(x_t%20\mid%20x_0)}%20\Big[%20%7C%20x_0%20-%20%5Chat{x}_0%20%7C%5E2%20%5D)
 
 where $\hat{x}_0$ is the denoised prediction from $\theta_{\text{denoiser}}$. This objective encourages the model to accurately predict $x_0$ from noisy samples while aligning the generated data with the provided metadata.
 
-
----
 
 ### Iterative Sampling
 
