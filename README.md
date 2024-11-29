@@ -131,6 +131,7 @@ In time series generation, you might use timestamps as part of the metadata to c
 <p align="center">
   <img alt=" csdi Time Weaver" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/time%20Weaver%20.png">
 </p>
+
 ### Time Weaver: A Conditional Time Series Generation Model
 
 Time Weaver is a novel model designed for conditional time series generation through a diffusion-based probabilistic approach, enabling high-quality synthesis of time series data that aligns with provided metadata. The model incorporates a forward diffusion process $q(x_t \mid x_{t-1})$ to iteratively corrupt the input time series $x_0$ with Gaussian noise, producing increasingly noisy samples $x_t$ over $T$ steps. The reverse process aims to denoise $x_t$ step-by-step using a learnable denoising function $\theta_{\text{denoiser}}$, effectively reconstructing the original time series $x_0$.
