@@ -253,6 +253,8 @@ The feature extractors are trained using a contrastive learning approach to ensu
 The training loss is a combination of two objectives:
 1. **Time Series Loss ($\mathcal{L}_{\text{time}}$):** Ensures accurate representation of time series features.
 2. **Metadata Loss ($\mathcal{L}_{\text{meta}}$):** Optimizes the metadata embeddings.
+
+
 The total loss is defined as:
 
 
@@ -262,11 +264,7 @@ Where:
 
 ![Total Loss Equation](https://latex.codecogs.com/svg.latex?\mathcal{L}=\mathcal{L}_{\text{time}}%20+%20\mathcal{L}_{\text{meta}}.)
 
-The total loss is defined as:
 
-$$
-\mathcal{L} = \mathcal{L}_{\text{time}} + \mathcal{L}_{\text{meta}}.
-$$
 
 #### **Why J-FTSD?**
 
