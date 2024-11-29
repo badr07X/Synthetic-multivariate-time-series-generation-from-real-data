@@ -103,6 +103,110 @@ In time series generation, you might use timestamps as part of the metadata to c
   <img alt="csdi model" src="https://github.com/badr07X/Synthetic-multivariate-time-series-generation-from-real-data/blob/main/figures/model.png">
 </p>
 
+# Time Series Diffusion Model Architecture
+
+This repository implements a diffusion-based model for time series generation and imputation. Below is a detailed explanation of the architecture.
+
+## Overview
+The model is designed for tasks like:
+- **Time-series generation**: Synthesizing realistic data.
+- **Imputation**: Filling in missing values.
+- **Forecasting**: Predicting future time steps.
+
+The architecture combines convolutional layers, transformers, and gated mechanisms to process temporal and feature dimensions effectively.
+
+---
+
+## Model Inputs
+1. **Input Tensor**:  
+   $x^{\text{co}}_0, x^{\text{ta}}_t$ of shape $(K, L, 2)$:  
+   - $K$: Number of features.  
+   - $L$: Length of the time series.  
+   - $2$: Observed and target data.
+
+2. **Diffusion Timestep Embedding**:  
+   Encodes the diffusion timestep $t$ with shape $(1, 1, 128)$.
+
+3. **Side Information**:
+   - **Time Embedding**: $(1, L, 128)$.
+   - **Feature Embedding**: $(K, 1, 16)$.
+   - **Conditional Mask**: $m^{\text{co}}$ of shape $(K, L, 1)$, indicating observed vs. missing values.
+
+---
+
+## Model Components
+
+### 1. Preprocessing Layers
+- **Conv1x1 and ReLU**:  
+  A 1D convolution followed by ReLU transforms the input tensor. Output shape: $(K, L, C)$.
+
+- **Diffusion Embedding**:  
+  The timestep embedding $t$ is processed with:
+  - Fully-connected layers with SiLU activation.
+  - Expansion via a convolution to shape $(1, L, 128)$.
+
+- **Side Information Integration**:  
+  The side information is expanded and concatenated with the input tensor along the feature dimension.
+
+---
+
+### 2. Transformer Layers
+- **Temporal Transformer**:  
+  Captures temporal dependencies across the time steps ($L$).  
+  Input shape: $(K, L, C)$.
+
+- **Feature Transformer**:  
+  Models dependencies across features ($K$) at each time step.  
+  Input shape: $(K, L, C)$.
+
+---
+
+### 3. Residual Blocks
+Each residual block includes:
+1. **Conv1x1**: Expands the feature channels to $2C$.
+2. **Gated Activation Unit**: Combines input with a gating mechanism for nonlinear interactions.
+3. **Conv1x1 (output)**: Reduces the channels back to $C$.  
+   Residual connections preserve the original input and stabilize training.
+
+---
+
+### 4. Skip Connections
+- Intermediate outputs are combined via skip connections to produce the final output.
+- Ensures gradient flow and preserves fine-grained information.
+
+---
+
+### 5. Output Layer
+1. **Conv1x1 and ReLU**: Final feature transformation.
+2. **Masking**: Multiplies output by $(1 - m^{\text{co}})$ to mask observed indices.  
+   Final output shape: $(K, L, 1)$.
+
+---
+
+## Key Features
+1. **Temporal and Feature Separation**:  
+   Uses separate transformers for time and feature dimensions.
+
+2. **Diffusion Embedding**:  
+   Ensures alignment with the diffusion framework by embedding the timestep.
+
+3. **Side Information Utilization**:  
+   Improves accuracy using auxiliary data like embeddings and masks.
+
+4. **Residual and Skip Connections**:  
+   Enhance stability, preserve input information, and allow deeper model training.
+
+---
+
+## Applications
+This model can be used for:
+- **Time-Series Generation**: Synthesizing realistic data for simulation or testing.
+- **Imputation**: Filling in missing or corrupted time-series values.
+- **Forecasting**: Predicting future values based on historical patterns.
+
+For more details, refer to the code and implementation files in this repository.
+
+
   ### CSDI hyperparameters 
 ### Table 1: CSDI Hyperparameters
 
