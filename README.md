@@ -137,7 +137,7 @@ In time series generation, you might use timestamps as part of the metadata to c
 Time Weaver is a novel model designed for conditional time series generation through a diffusion-based probabilistic approach, enabling high-quality synthesis of time series data that aligns with provided metadata. The model incorporates a forward diffusion process q(xt∣xt−1)q(xt​∣xt−1​) to iteratively corrupt the input time series x0x0​ with Gaussian noise, producing increasingly noisy samples xtxt​ over TT steps. The reverse process aims to denoise xtxt​ step-by-step using a learnable denoising function θdenoiserθdenoiser​, effectively reconstructing the original time series x0x0​.
 
 The forward diffusion process can be mathematically represented as:
-q(xt∣xt−1)=N(xt;αtxt−1,(1−αt)I),
+$q(xt∣xt−1)=N(xt;αtxt−1,(1−αt)I)$,
 q(xt​∣xt−1​)=N(xt​;αt​
 ​xt−1​,(1−αt​)I),
 
