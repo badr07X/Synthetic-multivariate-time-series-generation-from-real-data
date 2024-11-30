@@ -106,6 +106,8 @@ where:
 
 ### 3. Training Objective (Loss Function)
 
+## 3. Training Objective (Loss Function)
+
 To train the model, we optimize the network to predict the noise $\epsilon$ that was added at each step $t$. The loss function is:
 
 $$
@@ -116,6 +118,7 @@ $$
 - $\theta_{\text{denoiser}}$: A neural network trained to predict $\epsilon$ given $x_t$ and $t$.
 
 This loss function is equivalent to **score-matching techniques**.
+
 
 # Objectives : 
 
