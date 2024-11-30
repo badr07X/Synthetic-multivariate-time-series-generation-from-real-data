@@ -105,9 +105,7 @@ where:
 ---
 
 ### 3. Training Objective (Loss Function)
-
-## 3. Training Objective (Loss Function)
-## 3. Training Objective (Loss Function)
+(Loss Function)
 
 To train the model, we optimize the network to predict the noise $\epsilon$ that was added at each step $t$. The loss function is:
 
